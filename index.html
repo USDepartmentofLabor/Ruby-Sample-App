@@ -153,7 +153,6 @@ For the DOL Service Operation sample please use http://api.dol.gov/V1/SummerJobs
 <h3><a name="Federal"></a>Using This SDK With APIs From Other Federal Agencies</h3>
 <p>This sample project uses DOL's API.  Some federal APIs' URLs are structured differently.  For example, let's look at http://business.usa.gov/api/article/xml
 <ul>
-	<li>API_LOGIN = ""</li>
     <li>API_KEY = ""</li>
 	<li>SHARED_SECRET = ""</li>
 	<li>API_HOST = "http://business.usa.gov"</li>
@@ -163,7 +162,6 @@ For the DOL Service Operation sample please use http://api.dol.gov/V1/SummerJobs
 
 <p>Alternatively, let's look at the Census Bureau, which uses an API key.  For example, http://api.census.gov/data/2010/acs5?key={your key}&get=B02001_001E,NAME&for=state:06,36
 <ul>
-    <li>API_LOGIN = ""</li>
 	<li>API_KEY = "key={your key}"</li>
 	<li>API_SECRET = ""</li>
 	<li>API_Host = "http://api.census.gov"</li>
@@ -189,7 +187,7 @@ API_KEY = 'your-token'
 API_SECRET = 'your-shared-secret'
 API_DATA = 'DOLAgency/Agencies'
 API_URI = 'V1'
-context = GOV::DataContext.new API_HOST, API_KEY, API_SECRET, API_LOGIN, API_DATA, API_URI
+context = GOV::DataContext.new API_HOST, API_KEY, API_SECRET, API_DATA, API_URI
 request = GOV::DataRequest.new context
 </pre><br></p>
 
