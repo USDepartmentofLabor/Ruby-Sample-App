@@ -12,7 +12,9 @@ API_URI = 'V1'
 context = GOV::DataContext.new API_HOST, API_KEY, API_SECRET, API_DATA, API_URI
 request = GOV::DataRequest.new context
 
-############ CALL 1 This is the an example using DOL's API.  For other agencies, substitute the method and arguments as necessary.
+############ CALL 1: This is the an example using DOL's API and the Agencies Dataset: http://developer.dol.gov/dataset/dol-agency-dataset
+############ To use other datasets, substitute in the appropriate dataset location and table name.
+############ EX: request.call_api 'DatasetLocation/TableName'
 request.call_api 'DOLAgency/Agencies', :select => 'Agency,AgencyFullName', :orderby => 'AgencyFullName' do |results, error|
   if error
    puts error
@@ -35,7 +37,7 @@ end
 #Make API call
 #request.call_api 'SummerJobs/getJobsListing', :format => '\'json\'', :query => '\'farm\'', 
 #           :region => '', :locality => '', 
-#            :skipcount => '1' do |results, error|
+#           :skipcount => '1' do |results, error|
             
 #  if error
 #    puts error
@@ -50,7 +52,5 @@ end
     
 #  end
 #end
-
-
 
 request.wait_until_finished
