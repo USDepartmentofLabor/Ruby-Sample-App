@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <HTML> 
 <HEAD> 
 <TITLE>U.S. Department of Labor -- The Department of Labor Developer Community</TITLE>
@@ -176,27 +176,27 @@ The <strong><a href="https://github.com/USDepartmentofLabor/Ruby_DOLDataSDK">GOV
 
 <pre class="prettyprint">require './GOVDataSDK'</pre><br></p>
 
-<p>In order to submit data requests, we will need to create two objects; an instance of <strong>GOV::DataContext</strong>, to hold various information about our data request, and an instance of <strong>GOV::DataRequest</strong>, to handle the submission of the request.<br> 
-The API_HOST,API_KEY,APISECRET, API_DATA and API_URI constants work for all government entities if an option is not used in your government entity class call simply leave it blank and only use the required variables for that government entity.<br>
+<p>In order to submit data requests, we will need to create two objects; an instance of <strong>GOV::DataContext</strong>, to hold various information about our data request, and an instance of <strong>GOV::DataRequest</strong>, to handle the submission of the request.
+The Shared Secret has been deprecated and should no longer be included as a parameter when creating a <strong>GOV::DataRequest</strong> instance.<br><br>
+The API_HOST,API_KEY, API_DATA, and API_URI constants work for all government entities if an option is not used in your government entity class call simply leave it blank and only use the required variables for that government entity.<br>
 <br>
 
 <pre class="prettyprint">
 #If one of the constants below does not have a value for the government entity you are calling simply leave it blank or empty. 
 API_HOST = 'http://api.dol.gov'
 API_KEY = 'your-token'
-API_SECRET = 'your-shared-secret'
+#API_SECRET = 'your-shared-secret' ##no longer used
 API_DATA = 'DOLAgency/Agencies'
 API_URI = 'V1'
-context = GOV::DataContext.new API_HOST, API_KEY, API_SECRET, API_DATA, API_URI
+context = GOV::DataContext.new API_HOST, API_KEY, API_DATA, API_URI
 request = GOV::DataRequest.new context
 </pre><br></p>
 
 <h2>Configure Security</h2>
 <p>
-Secure logins are provided using the following code; we will need to insure that the <strong>GOV::DataContext</strong> instance is initialied with both an <strong>ApiKey</strong> and a <strong>SharedSecret</strong>.  Replace "your-token" and "your-shared-secret" in <strong>GOV::DataContext.new</strong> with your Token and SharedSecret.<br>
+Secure logins are provided using the following code; we will need to insure that the <strong>GOV::DataContext</strong> instance is initialied with an <strong>ApiKey</strong>.  Replace "your-token" in <strong>GOV::DataContext.new</strong> with your Token.<br>
 <ul>
 <li>The <strong>ApiKey</strong> corresponds to the <strong>Token</strong> identifier in your token list.</li>
-<li>The <strong>SharedSecret</strong> that is associated with that token.</li>
 </ul>
 </p>
 
@@ -265,7 +265,6 @@ require './GOVDataSDK'
 
 API_HOST = 'http://api.dol.gov'
 API_KEY = ''
-API_SECRET = ''
 API_DATA = 'DOLAgency/Agencies'
 API_URI = 'V1'
 
@@ -301,11 +300,10 @@ require './GOVDataSDK'
 
 API_HOST = 'http://api.dol.gov'
 API_KEY = ''
-API_SECRET = ''
 API_DATA = 'SummerJobs/getJobsListing'
 API_URI = 'V1'
 
-context = GOV::DataContext.new API_HOST, API_KEY, API_SECRET, API_DATA, API_URI
+context = GOV::DataContext.new API_HOST, API_KEY, API_DATA, API_URI
 request = GOV::DataRequest.new context
 
 
