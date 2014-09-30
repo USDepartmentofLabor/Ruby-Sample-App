@@ -16,15 +16,15 @@ request = GOV::DataRequest.new context
 ############ EX: request.call_api 'DatasetLocation/TableName'
 request.call_api 'DOLAgency/Agencies', :select => 'Agency,AgencyFullName', :orderby => 'AgencyFullName' do |results, error|
   if error
-   puts error
+    puts error
   else
-  print "\nattempting to print the results\n"
-	#if the JSON is parsed
+    print "\nattempting to print the results\n"
+    #if the JSON is parsed
     results.each do |n|
       puts "#{n['Agency']} - #{n['AgencyFullName']}"
     end
     #end if the JSON is parsed
-    
+
     #if the JSON is not parsed
     print results
     #end if the JSON is not parsed
@@ -37,18 +37,18 @@ end
 #request.call_api 'SummerJobs/getJobsListing', :format => '\'json\'', :query => '\'farm\'', 
 #           :region => '', :locality => '', 
 #           :skipcount => '1' do |results, error|
-            
+
 #  if error
 #    puts error
 #  else
-  
+
 #    Jobs = results['getJobsListing']
 #    JobsListing = Jobs['items']
 #     results
 #    JobsListing.each do |n|
 #      puts "#{n['title']} - #{n['snippet']}"
 #    end
-    
+
 #  end
 #end
 
