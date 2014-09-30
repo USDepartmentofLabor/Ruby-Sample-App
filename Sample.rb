@@ -5,11 +5,10 @@ require './GOVDataSDK'
 
 API_HOST = 'http://api.dol.gov'
 API_KEY = ''
-API_SECRET = ''
-API_DATA = ''
+API_DATA = 'DOLAgency/Agencies'
 API_URI = 'V1'
 
-context = GOV::DataContext.new API_HOST, API_KEY, API_SECRET, API_DATA, API_URI
+context = GOV::DataContext.new API_HOST, API_KEY, API_DATA, API_URI
 request = GOV::DataRequest.new context
 
 ############ CALL 1: This is the an example using DOL's API and the Agencies Dataset: http://developer.dol.gov/dataset/dol-agency-dataset
@@ -32,7 +31,7 @@ request.call_api 'DOLAgency/Agencies', :select => 'Agency,AgencyFullName', :orde
   end
 end
 
-######### CALL 2# This calls the Derpartment of Labor data set callL: Make API call for Summer Jobs####################
+######### CALL 2# This calls the Department of Labor data set callL: Make API call for Summer Jobs####################
 
 #Make API call
 #request.call_api 'SummerJobs/getJobsListing', :format => '\'json\'', :query => '\'farm\'', 
