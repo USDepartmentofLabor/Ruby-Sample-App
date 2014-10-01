@@ -268,10 +268,10 @@ API_KEY = ''
 API_DATA = 'DOLAgency/Agencies'
 API_URI = 'V1'
 
-context = GOV::DataContext.new API_HOST, API_KEY, API_SECRET, API_DATA, API_URI
+context = GOV::DataContext.new API_HOST, API_KEY, API_DATA, API_URI
 request = GOV::DataRequest.new context
 
-substitute the method and arguments as necessary.
+#substitute the method and arguments as necessary.
 request.call_api API_DATA, :select => 'Agency,AgencyFullName', :orderby => 'AgencyFullName' do |results, error|
   if error
    puts error
