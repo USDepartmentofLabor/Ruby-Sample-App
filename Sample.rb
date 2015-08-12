@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 #import the GOVDataSDK file into your sample project.
 require './GOVDataSDK'
 
@@ -19,15 +20,15 @@ request.call_api 'DOLAgency/Agencies', :select => 'Agency,AgencyFullName', :orde
     puts error
   else
     print "\nattempting to print the results\n"
-    #if the JSON is parsed
-    results.each do |n|
-      puts "#{n['Agency']} - #{n['AgencyFullName']}"
+    #Retreive the nokogiri XML object
+    agency = results.xpath('//d:Agency')
+    name = results.xpath('//d:AgencyFullName')
+    
+    agency.each_with_index do |a,i|
+       a.text
+      puts "#{a.text} - #{name[i].text}"
     end
-    #end if the JSON is parsed
-
-    #if the JSON is not parsed
-    print results
-    #end if the JSON is not parsed
+    
   end
 end
 

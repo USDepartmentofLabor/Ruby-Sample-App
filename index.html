@@ -128,10 +128,10 @@ Copy the SDK file into the project folder.  You can get this from one this <a hr
 <p>
 Ensure that you have installed the <strong>
 <a href="http://rubygems.org/gems/json">json</a></strong> 
-and <strong><a href="http://rubygems.org/gems/ruby-hmac">ruby-hmac</a></strong> gems.<br><br>
+and <strong><a href="http://www.nokogiri.org/">nokogiri</a></strong> gems.<br><br>
 
 <pre class="prettyprint">MACHINE:~ user$ gem install json
-MACHINE:~ user$ gem install ruby-hmac</pre><br>
+MACHINE:~ user$ gem install nokogiri</pre><br>
 </p>
 
 
@@ -180,6 +180,8 @@ The <strong><a href="https://github.com/USDepartmentofLabor/Ruby_DOLDataSDK">GOV
 The Shared Secret has been deprecated and should no longer be included as a parameter when creating a <strong>GOV::DataRequest</strong> instance.<br><br>
 The API_HOST,API_KEY, API_DATA, and API_URI constants work for all government entities if an option is not used in your government entity class call simply leave it blank and only use the required variables for that government entity.<br>
 <br>
+<p>Using APIv1 will return a Nokogiri XML Object.  Consult the <a href='http://www.nokogiri.org/tutorials/searching_a_xml_html_document.html'>Nokogiri Documentation</a> for more information on how to use this object.
+<br>
 
 <pre class="prettyprint">
 #If one of the constants below does not have a value for the government entity you are calling simply leave it blank or empty. 
@@ -218,15 +220,18 @@ request.call_api API_DATA,	:format => '\'json\'', :query => '\'farm\'',
 
 For Standard DOL API datasets <br /><br />
 <pre class="prettyprint">request.call_api API_DATA, :select => ‘Agency,AgencyFullName’, :orderby => ‘AgencyFullName’ do |results, error|
-	#if the JSON is parsed
-    results.each do |n|
-      puts "#{n['Agency']} - #{n['AgencyFullName']}"
-    end
-    #end if the JSON is parsed
+  if error
+    puts error
+  else
+    print "\nattempting to print the results\n"
+    #Retreive the nokogiri XML object
+    agency = results.xpath('//d:Agency')
+    name = results.xpath('//d:AgencyFullName')
     
-    #if the JSON is not parsed
-    print results
-    #end if the JSON is not parsed
+    agency.each_with_index do |a,i|
+       a.text
+      puts "#{a.text} - #{name[i].text}"
+    end
 end</pre><br></p>
 
 <p>For DOL Service Operation (e.g. Summer Job Plus)<br />
@@ -274,19 +279,17 @@ request = GOV::DataRequest.new context
 #substitute the method and arguments as necessary.
 request.call_api API_DATA, :select => 'Agency,AgencyFullName', :orderby => 'AgencyFullName' do |results, error|
   if error
-   puts error
+    puts error
   else
-  print "\nattempting to print the results\n"
-	#if the JSON is parsed
-    results.each do |n|
-      puts "#{n['Agency']} - #{n['AgencyFullName']}"
-    end
-    #end if the JSON is parsed
+    print "\nattempting to print the results\n"
+    #Retreive the nokogiri XML object
+    agency = results.xpath('//d:Agency')
+    name = results.xpath('//d:AgencyFullName')
     
-    #if the JSON is not parsed
-    print results
-    #end if the JSON is not parsed
-  end
+    agency.each_with_index do |a,i|
+       a.text
+      puts "#{a.text} - #{name[i].text}"
+    end
 end
 
 request.wait_until_finished</pre><br></p>
